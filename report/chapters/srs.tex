@@ -1,0 +1,245 @@
+
+
+This Software Requirements Specification (SRS) outlines the software and system requirements for EthnoVerse. It details functional and non-functional requirements for system capabilities. The document also includes external interfaces to clarify the system’s design and interactions.
+
+\section{Functional Requirements}
+
+This section specifies the functional requirements of the system. The requirements are divided into two primary categories: those pertaining to the \textbf{web platform} and those related to the \textbf{3D virtual tour module} developed using Neural Radiance Fields (NeRF). Each subsection includes a tabular summary and a module-wise functional outline for clarity.
+
+\subsection{EthnoVerse Web Platform}
+
+The web platform is responsible for storing, displaying, and managing multimedia data related to community archives. Only administrators have access to content management features, while public users can freely view and search content without authentication.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{p{1.5cm} p{3cm} p{8cm} p{2cm}}
+\hline
+\textbf{ID} & \textbf{Function Name} & \textbf{Description} & \textbf{Users} \\
+\hline
+FR-W01 & Admin Authentication & Admins log in securely using authentication to access upload, edit, and delete functionalities. & Admin \\
+FR-W02 & Media Upload & Admin uploads multimedia content (text, image, audio, video) with metadata (title, tags, community, description, consent). & Admin \\
+FR-W03 & Edit/Delete Content & Admin edits metadata or removes outdated/incorrect items. All edits are logged. & Admin \\
+FR-W04 & Metadata Management & Validates and stores metadata; supports updates and versioning. & Admin \\
+FR-W05 & Search Content & Users search items by title, tags, or description. & Admin, Public \\
+FR-W06 & Filter Results & Users filter items by community, media type, or upload date. & Admin, Public \\
+FR-W07 & View Media & Public users view multimedia content through responsive layouts. & Public \\
+FR-W08 & Dashboard Overview & Admin dashboard displays statistics such as total uploads and media distribution. & Admin \\
+FR-W09 & Backup and Data Integrity & Automated database backups and consistency checks ensure data reliability. & System \\
+FR-W10 & Logs and Audit Trail & Records admin actions (login, upload, edit, delete) for transparency. & System, Admin \\
+FR-W11 & Scalability and Generalization & System supports addition of new communities without structural changes or degradation. Database schema and API design ensure scalability and modular extensibility. & System, Admin \\
+
+\hline
+\end{tabular}
+\caption{Functional requirements for EthnoVerse web platform.}
+\end{table}
+
+\paragraph{Module-wise Outline}
+
+\begin{outline}
+  \1 \textbf{Module 1: Admin Authentication}
+    \2 Secure login and session management.
+    \2 Only authenticated admins can perform CRUD operations on content.
+
+  \1 \textbf{Module 2: Archive Content Management}
+    \2 Upload of multimedia items with validated metadata.
+    \2 Edit or delete entries as required, with logs maintained for accountability.
+    \2 Metadata management supporting version control and validation.
+
+  \1 \textbf{Module 3: Search and Discovery}
+    \2 Keyword search across titles, tags, and descriptions.
+    \2 Filtering by community, content type, or upload date.
+
+  \1 \textbf{Module 4: Content Presentation}
+    \2 Responsive user interface (React.js) displaying media grid and detailed views.
+    \2 Embedded media players for image, audio, and video files.
+
+  \1 \textbf{Module 5: System Administration}
+    \2 Dashboard summarizing total uploads and user activity.
+    \2 Automated data backups and integrity verification.
+    \2 Logs for uploads, edits, deletions, and admin sessions.
+    
+  \1 \textbf{Module 6: System Extensibility and Scalability}
+    \2 Supports addition of new communities and datasets without structural changes.
+    \2 Allows integration of new media types through modular schema design.
+    \2 Ensures smooth performance as data volume and content grow.
+
+
+\end{outline}
+
+\subsection{3D Reconstruction and Virtual Tour}
+
+The 3D module demonstrates the technical application of computer graphics techniques to reconstruct community environments from photographs.
+
+\begin{table}[H]
+\centering
+\small
+\begin{tabular}{p{1.5cm} p{3cm} p{8cm} p{2cm}}
+\hline
+\textbf{ID} & \textbf{Function Name} & \textbf{Description} & \textbf{Users} \\
+\hline
+FR-3D01 & Dataset Preparation & Collect and preprocess multiple-angle photographs of community spaces for NeRF input. & Admin \\
+FR-3D02 & Scene Reconstruction & Generate 3D radiance field representations using NeRF or Gaussian Splatting techniques. & System \\
+FR-3D03 & Rendering and Visualization & Render 3D scenes into navigable virtual tours integrated into the web interface (via Three.js). & Public, Admin \\
+FR-3D04 & Scene Management & Store, update, or remove 3D models and their metadata (scene name, location, source images). & Admin \\
+FR-3D05 & Performance Optimization & Optimize rendering quality and load times for web deployment. & System \\
+FR-3D06 & Fallback Handling & If NeRF reconstruction fails, fallback to photo-based 360° panoramic tour is generated. & System \\
+\hline
+\end{tabular}
+\caption{Functional requirements for the 3D reconstruction module.}
+\end{table}
+
+\paragraph{Module-wise Outline}
+
+\begin{outline}
+  \1 \textbf{Module 1: Data Preparation}
+    \2 Capture or collect photographs of community sites (courtyards, huts, shrines) from multiple angles.
+    \2 Preprocess images (resize, align, normalize lighting) before NeRF input.
+
+  \1 \textbf{Module 2: Scene Reconstruction}
+    \2 Implement NeRF or Gaussian Splatting for 3D radiance field estimation.
+    \2 Generate scene models stored in compressed formats for web use.
+
+  \1 \textbf{Module 3: Rendering and Visualization}
+    \2 Convert reconstructed 3D scenes into Three.js environments.
+    \2 Embed virtual tours within the frontend interface.
+
+  \1 \textbf{Module 4: Scene Management and Maintenance}
+    \2 Store reconstructed models and associated metadata (scene name, date, contributors).
+    \2 Allow admin to update or delete 3D scenes.
+    \2 Implement caching and loading optimization for performance.
+
+  \1 \textbf{Module 5: Fallback and Error Handling}
+    \2 If reconstruction fails or resources are insufficient, generate a static 360° panoramic viewer.
+    \2 Log all reconstruction processes and errors for debugging.
+\end{outline}
+
+
+
+
+
+
+
+\section{Non-Functional Requirements}
+
+The following non-functional requirements ensure the performance, reliability, scalability, and ethical compliance of the EthnoVerse system.
+
+\begin{itemize}
+
+\item \textbf{Performance:}
+\begin{itemize}
+\item The system must support at least 50 concurrent users with average response times under 2 seconds for typical queries.
+\item Search results should render within 1--3 seconds for datasets containing up to 10,000 items.
+\item Media files must be optimized for web display using compressed images and adaptive video streaming techniques.
+\end{itemize}
+
+\item \textbf{Reliability:}
+\begin{itemize}
+\item The database must maintain at least 99\% uptime under normal conditions.
+\item Failed upload sessions should automatically retry or roll back transactions to preserve data integrity.
+\item The system should recover gracefully from unexpected shutdowns or network interruptions.
+\end{itemize}
+
+\item \textbf{Security:}
+\begin{itemize}
+\item All administrator passwords must be stored using salted hashing.
+\item JWT-based authentication must be enforced for all protected endpoints.
+\item HTTPS must be enabled on deployment; role-based authorization will restrict all CRUD operations to authenticated admins.
+\end{itemize}
+
+\item \textbf{Usability:}
+\begin{itemize}
+\item The user interface must follow WCAG~2.1 accessibility standards and maintain a responsive design across devices.
+\item The upload interface should include clearly labeled fields and drag-and-drop functionality.
+\item Search and filter options must remain visible and accessible on all main views.
+\end{itemize}
+
+\item \textbf{Compliance and Ethics:}
+\begin{itemize}
+\item Ethical representation of indigenous content will be ensured with support from an SDP professor and student volunteer specializing in ethnographic research.
+\item Administrators must verify consent documentation before publishing any community media.
+\item Cultural materials will be presented with appropriate attribution and context.
+\end{itemize}
+
+
+\end{itemize}
+
+
+
+
+
+\section{External Interfaces}
+
+\subsection{User Interfaces}
+
+The Living Archives platform provides two main user-facing interfaces:
+
+\begin{itemize}
+\item \textbf{Public Interface (Web Portal):}
+\begin{itemize}
+\item Accessible via web browser.
+\item Features a home page with search bar, category filters, and featured archives.
+\item Each media item has a detail page with description, metadata, and related items.
+\item 3D tour viewer embedded within the page for immersive experiences.
+\end{itemize}
+\item \textbf{Admin Interface:}
+\begin{itemize}
+\item Accessible only to authorized users.
+\item Includes upload form, metadata editor, user management, and backup controls.
+\end{itemize}
+\end{itemize}
+
+\subsection{Hardware and Communication Interfaces}
+
+\begin{itemize}
+\item The system operates on standard hardware; a mid-range GPU (e.g., NVIDIA RTX 3060 or equivalent) is recommended for 3D reconstruction tasks.
+\item Communication between frontend and backend via RESTful APIs over HTTPS.
+\item Cloud or on-premise deployment supported using standard web server configurations.
+\end{itemize}
+
+\section{Use Cases}
+
+\subsection{Use Case Diagram}
+
+\begin{center}
+% \includegraphics[width=0.85\textwidth]{usecase_diagram_placeholder.png}
+\end{center}
+
+\textbf{Actors:}
+\begin{itemize}
+\item \textbf{Public User} — browses, searches, and views content.
+\item \textbf{Researcher} — advanced search and data export (future extension).
+\item \textbf{Contributor} — uploads new content with metadata and consent information.
+\item \textbf{Administrator} — manages users, reviews uploads, edits or removes content, monitors system logs.
+\end{itemize}
+
+\textbf{Primary Use Cases:}
+\begin{enumerate}
+\item User logs in or registers an account.
+\item User browses or searches the archive.
+\item Contributor uploads new content with metadata and files.
+\item System processes and stores uploaded files.
+\item Admin reviews and publishes approved uploads.
+\item User views detailed media pages or explores 3D scenes.
+\item System performs automatic backup at scheduled intervals.
+\end{enumerate}
+
+\section{System Diagram}
+
+\begin{center}
+% \includegraphics[width=0.85\textwidth]{system_architecture_placeholder.png}
+\end{center}
+
+\textbf{Components:}
+\begin{itemize}
+\item \textbf{Frontend (React.js):} Provides interactive user interface for browsing, searching, and viewing content.
+\item \textbf{Backend (Node.js + Express):} Handles API requests, authentication, and routing between frontend and database.
+\item \textbf{Database (MongoDB):} Stores metadata, user records, and references to media files.
+\item \textbf{Media Storage:} Stores uploaded files (audio, video, images, 3D models) in cloud or local storage.
+\item \textbf{3D Reconstruction Engine:} Uses NeRF or Gaussian Splatting algorithms for generating interactive 3D environments.
+\item \textbf{Admin Console:} Provides management tools for reviewing uploads, moderating content, and system maintenance.
+\end{itemize}
+
+Data flow between components is REST-based: user actions on the frontend trigger API calls to the backend, which fetches or updates data in MongoDB and serves media content from storage. The architecture supports modular scaling and clean separation between data, logic, and presentation layers.
+
+We expect every project to have at least of the following subsections. This section must be aligned with your project deliverables. Please consult with your project supervisor regarding which of the following section(s) you should include in your report
