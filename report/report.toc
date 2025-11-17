@@ -13,24 +13,26 @@
 \contentsline {chapter}{\numberline {3}Software Requirement Specification (SRS)}{14}{chapter.3}%
 \contentsline {section}{\numberline {3.1}Functional Requirements}{14}{section.3.1}%
 \contentsline {subsection}{\numberline {3.1.1}EthnoVerse Web Platform}{14}{subsection.3.1.1}%
-\contentsline {paragraph}{Module-wise Outline}{15}{table.3.1}%
 \contentsline {subsection}{\numberline {3.1.2}3D Reconstruction and Virtual Tour}{16}{subsection.3.1.2}%
-\contentsline {paragraph}{Module-wise Outline}{17}{table.3.2}%
 \contentsline {section}{\numberline {3.2}Non-Functional Requirements}{18}{section.3.2}%
-\contentsline {section}{\numberline {3.3}External Interfaces}{19}{section.3.3}%
-\contentsline {subsection}{\numberline {3.3.1}User Interfaces}{19}{subsection.3.3.1}%
-\contentsline {subsection}{\numberline {3.3.2}Hardware and Communication Interfaces}{24}{subsection.3.3.2}%
-\contentsline {section}{\numberline {3.4}Use Cases}{24}{section.3.4}%
-\contentsline {subsection}{\numberline {3.4.1}Use Case Diagram}{24}{subsection.3.4.1}%
-\contentsline {section}{\numberline {3.5}System Diagram}{25}{section.3.5}%
-\contentsline {chapter}{\numberline {4}Software Design Specification (SDS)}{27}{chapter.4}%
-\contentsline {section}{\numberline {4.1}Software Design}{27}{section.4.1}%
-\contentsline {section}{\numberline {4.2}Data Design}{27}{section.4.2}%
-\contentsline {section}{\numberline {4.3}Technical Details}{27}{section.4.3}%
-\contentsline {chapter}{\numberline {5}Methodology, Experiments and Results OR Testing and Analysis}{28}{chapter.5}%
-\contentsline {chapter}{\numberline {6}Conclusion and Future Work}{29}{chapter.6}%
-\contentsline {chapter}{\numberline {7}Reflection}{30}{chapter.7}%
-\contentsline {chapter}{Appendix \numberline {A}More Math}{31}{appendix.1.A}%
-\contentsline {chapter}{Appendix \numberline {B}Data}{32}{appendix.1.B}%
-\contentsline {chapter}{Appendix \numberline {C}Code}{33}{appendix.1.C}%
-\contentsline {chapter}{References}{34}{appendix*.7}%
+\contentsline {section}{\numberline {3.3}External Interfaces}{20}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}User Interfaces}{20}{subsection.3.3.1}%
+\contentsline {subsection}{\numberline {3.3.2}Application Program Interface (API)}{28}{subsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.3.3}Hardware and Communication Interfaces}{29}{subsection.3.3.3}%
+\contentsline {section}{\numberline {3.4}Use Cases}{30}{section.3.4}%
+\contentsline {subsection}{\numberline {3.4.1}Use Case Diagram}{30}{subsection.3.4.1}%
+\contentsline {subsection}{\numberline {3.4.2}Use Cases by Actor}{30}{subsection.3.4.2}%
+\contentsline {subsubsection}{Public User / Researcher Use Cases}{30}{subsection.3.4.2}%
+\contentsline {subsubsection}{Administrator Use Cases}{31}{table.3.3}%
+\contentsline {section}{\numberline {3.5}System Diagram}{32}{section.3.5}%
+\contentsline {chapter}{\numberline {4}Software Design Specification (SDS)}{35}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Software Design}{35}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Data Design}{35}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Technical Details}{35}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Methodology, Experiments and Results OR Testing and Analysis}{36}{chapter.5}%
+\contentsline {chapter}{\numberline {6}Conclusion and Future Work}{37}{chapter.6}%
+\contentsline {chapter}{\numberline {7}Reflection}{38}{chapter.7}%
+\contentsline {chapter}{Appendix \numberline {A}More Math}{39}{appendix.1.A}%
+\contentsline {chapter}{Appendix \numberline {B}Data}{40}{appendix.1.B}%
+\contentsline {chapter}{Appendix \numberline {C}Code}{41}{appendix.1.C}%
+\contentsline {chapter}{References}{42}{appendix*.7}%
