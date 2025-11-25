@@ -2,18 +2,21 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
+import authRoutes from "./routes/authRoutes.js";
 
 dotenv.config();
-console.log("MONGO_URI:", process.env.MONGO_URI);
-console.log("PORT:", process.env.PORT);
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
+// connect DB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB connected"))
   .catch(err => console.log("❌ DB connection error:", err));
+
+// routes
+app.use("/api/auth", authRoutes);
 
 app.get("/", (req, res) => {
   res.send("EthnoVerse backend running...");
