@@ -2373,9 +2373,29 @@
     <bcf:datasource type="file" datatype="bibtex" glob="false">references.bib</bcf:datasource>
   </bcf:bibdata>
   <bcf:section number="0">
-    <bcf:citekey order="1" intorder="1">einstein</bcf:citekey>
-    <bcf:citekey order="2" intorder="1">knuthwebsite</bcf:citekey>
-    <bcf:citekey order="3" intorder="1">latexcompanion</bcf:citekey>
+    <bcf:citekey order="1" intorder="1">schwartz2002</bcf:citekey>
+    <bcf:citekey order="1" intorder="2">ernst2013</bcf:citekey>
+    <bcf:citekey order="2" intorder="1">ketelaar2001</bcf:citekey>
+    <bcf:citekey order="2" intorder="2">gilliland2014</bcf:citekey>
+    <bcf:citekey order="3" intorder="1">digilibraries</bcf:citekey>
+    <bcf:citekey order="4" intorder="1">hecdigitallibrary</bcf:citekey>
+    <bcf:citekey order="5" intorder="1">flinn2011</bcf:citekey>
+    <bcf:citekey order="6" intorder="1">gilliland2013</bcf:citekey>
+    <bcf:citekey order="7" intorder="1">cahg</bcf:citekey>
+    <bcf:citekey order="8" intorder="1">livingrefugee</bcf:citekey>
+    <bcf:citekey order="9" intorder="1">rosalesproject</bcf:citekey>
+    <bcf:citekey order="10" intorder="1">archivingpoliceviolence</bcf:citekey>
+    <bcf:citekey order="11" intorder="1">densho</bcf:citekey>
+    <bcf:citekey order="12" intorder="1">losscapture</bcf:citekey>
+    <bcf:citekey order="13" intorder="1">partitionarchive</bcf:citekey>
+    <bcf:citekey order="14" intorder="1">cap</bcf:citekey>
+    <bcf:citekey order="15" intorder="1">punjablibrary</bcf:citekey>
+    <bcf:citekey order="16" intorder="1">partitionarchive</bcf:citekey>
+    <bcf:citekey order="17" intorder="1">punjablibrary</bcf:citekey>
+    <bcf:citekey order="18" intorder="1">saada</bcf:citekey>
+    <bcf:citekey order="19" intorder="1">remondino2014</bcf:citekey>
+    <bcf:citekey order="20" intorder="1">mildenhall2020</bcf:citekey>
+    <bcf:citekey order="21" intorder="1">mildenhall2020</bcf:citekey>
   </bcf:section>
   <!-- SORTING TEMPLATES -->
   <bcf:sortingtemplate name="nty">
