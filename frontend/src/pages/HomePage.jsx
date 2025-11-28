@@ -1,29 +1,58 @@
-import React from "react";
+// frontend/src/pages/HomePage.jsx
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import TopNav from "../components/TopNav";
 import Container from "../components/Container";
-import { DUMMY_COMMUNITIES } from "../data/dummyData";
-import bannerImg from "../assets/Mithi,_Sindh_2018.jpg";
-
+// import { getCommunities } from "../utils/api";
+import { apiGet } from "../utils/api";
 
 export default function HomePage() {
+  const [communities, setCommunities] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+  apiGet("/communities")
+    .then((data) => {
+      setCommunities(data);
+      setLoading(false);
+    })
+    .catch((err) => {
+      console.error("Error fetching communities:", err);
+      setLoading(false);
+    });
+}, []);
+
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#FAF3E0] via-[#FFFDF8] to-[#EAD7C3]">
       <TopNav />
 
-      {/* Hero Section with Banner */}
+      {/* Hero Section */}
       <div className="relative">
+        {/* 1. The Background Image */}
         <img
-          src={bannerImg} // put your banner here
+          src="/assets/Mithi,_Sindh_2018.jpg" // banner from public/assets
           alt="Living Archives Banner"
-          className="w-full h-64 md:h-96 object-cover rounded-b-3xl shadow-lg"
+          // NOTE: Removed shadow-lg from here, added to the overlay below
+          className="w-full h-64 md:h-96 object-cover "
         />
-        
-        <div className="absolute inset-0 flex flex-col justify-center items-center text-center px-4 md:px-0">
+
+        {/* 2. NEW: Dark Overlay */}
+        {/* This div sits absolutely on top of the image.
+            bg-black/60 means black background with 60% opacity.
+            Change /60 to /50 or /70 to adjust darkness.
+            We add rounded-b-3xl and shadow-lg here so it matches the image shape. */}
+        <div className="absolute inset-0 bg-black/50 "></div>
+
+
+        {/* 3. The Text Content */}
+        {/* Added z-10 to ensure this sits on top of the overlay */}
+        <div className="absolute inset-0 z-10 flex flex-col justify-center items-center text-center px-4 md:px-0">
           <h1 className="text-4xl md:text-6xl font-extrabold mb-4 bg-gradient-to-r from-[#8B5E3C] to-[#5C4033] bg-clip-text text-transparent">
             Living Archives
           </h1>
-          <p className="text-white md:text-lg shadow-md px-4 md:px-0">
+          {/* Removed shadow-md from the paragraph as the dark background is enough now */}
+          <p className="text-white md:text-lg px-4 md:px-0">
             Documenting Sindh's communities through immersive multimedia and 3D experiences.
           </p>
           <div className="flex mt-6 space-x-4">
@@ -35,42 +64,48 @@ export default function HomePage() {
             </Link>
             <Link
               to="/search"
-              className="px-6 py-3 rounded-full border border-white text-white font-medium hover:bg-white hover:text-[#5C4033] transition-all"
+              // Added hover:border-transparent so the border doesn't clash with the white hover bg
+              className="px-6 py-3 rounded-full border border-white text-white font-medium hover:bg-white hover:text-[#5C4033] hover:border-transparent transition-all"
             >
               Search Archives
             </Link>
           </div>
         </div>
       </div>
-
       {/* Featured Communities */}
       <Container>
         <h2 className="text-3xl md:text-4xl font-extrabold text-center mt-12 mb-8 bg-gradient-to-r from-[#8B5E3C] to-[#5C4033] bg-clip-text text-transparent">
           Featured Communities
         </h2>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {DUMMY_COMMUNITIES.slice(0, 3).map((c) => (
-            <Link
-              key={c.id}
-              to={`/community/${c.id}`}
-              className="group relative block rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl bg-white/70 backdrop-blur-sm border border-[#D2B48C] transition-transform transform hover:-translate-y-1 duration-300"
-            >
-              <img
-                src={c.thumbnail} // community thumbnail
-                alt={c.name}
-                className="h-48 w-full object-cover group-hover:scale-105 transition-transform duration-300"
-              />
-              <div className="p-4">
-                <h3 className="text-xl font-semibold text-[#8B5E3C]">{c.name}</h3>
-                <p className="text-gray-700 text-sm mt-1 line-clamp-2">{c.description}</p>
-                <span className="text-[#5C4033] font-medium mt-2 inline-block group-hover:underline">
-                  View Details →
-                </span>
-              </div>
-            </Link>
-          ))}
-        </div>
+        {loading ? (
+          <p className="text-center text-gray-700">Loading communities...</p>
+        ) : communities.length === 0 ? (
+          <p className="text-center text-gray-700">No communities found.</p>
+        ) : (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {communities.slice(0, 3).map((c) => (
+              <Link
+                key={c._id}
+                to={`/community/${c._id}`}
+                className="group relative block rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl bg-white/70 backdrop-blur-sm border border-[#D2B48C] transition-transform transform hover:-translate-y-1 duration-300"
+              >
+                <img
+                  src={`/assets/${c.coverImage}`} // community images from public/assets
+                  alt={c.name}
+                  className="w-full h-40 object-cover"
+                />
+                <div className="p-4">
+                  <h3 className="text-xl font-semibold text-[#8B5E3C]">{c.name}</h3>
+                  <p className="text-gray-700 text-sm mt-1 line-clamp-2">{c.description}</p>
+                  <span className="text-[#5C4033] font-medium mt-2 inline-block group-hover:underline">
+                    View Details →
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
       </Container>
 
       {/* About Project */}

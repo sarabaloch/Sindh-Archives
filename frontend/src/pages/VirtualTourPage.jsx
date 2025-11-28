@@ -2,7 +2,8 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import TopNav from "../components/TopNav";
 import Container from "../components/Container";
-import { DUMMY_COMMUNITIES, DUMMY_MEDIA } from "../data/dummyData";
+// import { DUMMY_COMMUNITIES, DUMMY_MEDIA } from "../data/dummyData";
+import { apiGet } from "../utils/api";
 
 
 export default function VirtualTourPage() {

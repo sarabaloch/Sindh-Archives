@@ -4,7 +4,9 @@ import { Link, useParams } from "react-router-dom";
 import TopNav from "../components/TopNav";
 import BackButton from "../components/BackButton";
 import Container from "../components/Container";
-import { DUMMY_MEDIA } from "../data/dummyData";
+// import { DUMMY_MEDIA } from "../data/dummyData";
+import { apiGet } from "../utils/api";
+
 
 export default function MediaPage() {
   const { communityId } = useParams();

@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import TopNav from "../components/TopNav";
 import BackButton from "../components/BackButton";
 import Container from "../components/Container";
-import { DUMMY_COMMUNITIES, DUMMY_MEDIA } from "../data/dummyData";
+// import { DUMMY_COMMUNITIES, DUMMY_MEDIA } from "../data/dummyData";
+import { apiGet } from "../utils/api";
 
 
 

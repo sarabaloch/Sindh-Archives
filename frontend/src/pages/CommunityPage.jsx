@@ -1,37 +1,41 @@
-// CommunityPage.jsx
-import React from "react";
+// frontend/src/pages/CommunityPage.jsx
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import TopNav from "../components/TopNav";
 import Container from "../components/Container";
-import { DUMMY_COMMUNITIES, DUMMY_MEDIA } from "../data/dummyData";
+import { apiGet } from "../utils/api";
 
-
-function MediaList({ communityId }) {
-  const media = DUMMY_MEDIA[communityId] || [];
-  return (
-    <div className="space-y-3">
-      {media.map((m) => (
-        <Link key={m.id} to={`/community/${communityId}/media/${m.id}`} className="block p-3 border rounded flex items-center gap-3">
-          <div className="w-16 h-12 bg-gray-100 flex items-center justify-center rounded">{m.type}</div>
-          <div>
-            <div className="font-medium">{m.title}</div>
-            <div className="text-xs text-gray-500">{m.type.toUpperCase()}</div>
-          </div>
-        </Link>
-      ))}
-    </div>
-  );
-}
 export default function CommunityPage() {
-  const { communityId } = useParams();
-  const community =
-    DUMMY_COMMUNITIES.find((c) => c.id === communityId) || {
-      name: "Unknown",
-      description: "Community details not found.",
-      thumbnail: "/images/default.jpg",
-    };
+  const { communityId } = useParams(); // use the same param as App.jsx
 
-  const media = DUMMY_MEDIA[communityId] || [];
+  const [community, setCommunity] = useState(null);
+  const [media, setMedia] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    async function loadData() {
+      try {
+        // 1️⃣ Fetch single community
+        const communityRes = await apiGet(`/communities/${communityId}`);
+        setCommunity(communityRes);
+
+        // 2️⃣ Fetch media for this community using the route you already have
+        const mediaRes = await apiGet(`/media/community/${communityId}`);
+        setMedia(mediaRes);
+      } catch (err) {
+        setError("Failed to load community details.");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    loadData();
+  }, [communityId]);
+
+  if (loading) return <div className="text-center mt-20 text-xl text-gray-700">Loading community...</div>;
+
+  if (error) return <div className="text-center mt-20 text-red-500">{error}</div>;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#FAF3E0] via-[#FFFDF8] to-[#EAD7C3]">
@@ -40,17 +44,13 @@ export default function CommunityPage() {
         {/* Hero Section */}
         <div className="relative overflow-hidden rounded-2xl shadow-lg mb-10">
           <img
-            src={community.thumbnail}
+            src={`/assets/${community.coverImage}`}
             alt={community.name}
             className="w-full h-72 object-cover brightness-75"
           />
           <div className="absolute inset-0 flex flex-col justify-center items-center text-white text-center px-4 bg-black/30">
-            <h2 className="text-4xl font-extrabold mb-2 drop-shadow-lg">
-              {community.name}
-            </h2>
-            <p className="max-w-2xl text-sm md:text-base opacity-90">
-              {community.description}
-            </p>
+            <h2 className="text-4xl font-extrabold mb-2 drop-shadow-lg">{community.name}</h2>
+            <p className="max-w-2xl text-sm md:text-base opacity-90">{community.description}</p>
             <div className="mt-5 space-x-3">
               <Link
                 to={`/community/${communityId}/tour`}
@@ -60,7 +60,7 @@ export default function CommunityPage() {
               </Link>
               <Link
                 to={`/community/${communityId}/media`}
-                className="inline-block bg-gradient-to-r bg-gradient-to-r from-[#8B5E3C] to-[#5C4033] text-white px-5 py-2 rounded-full font-medium shadow hover:scale-105 transition-all"
+                className="inline-block bg-gradient-to-r from-[#8B5E3C] to-[#5C4033] text-white px-5 py-2 rounded-full font-medium shadow hover:scale-105 transition-all"
               >
                 View Media
               </Link>
@@ -78,42 +78,33 @@ export default function CommunityPage() {
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {media.map((m) => (
                 <Link
-                  key={m.id}
-                  to={`/community/${communityId}/media/${m.id}`}
+                  key={m._id}
+                  to={`/community/${communityId}/media/${m._id}`}
                   className="group bg-white/70 backdrop-blur-sm p-4 rounded-2xl border border-gray-200 shadow hover:shadow-xl transition hover:-translate-y-1"
                 >
                   <div className="relative">
                     <div className="w-full h-40 bg-gray-100 flex items-center justify-center rounded-lg overflow-hidden">
                       {m.type === "image" ? (
                         <img
-                          src={m.url}
+                          src={`/assets/${m.fileName}`}
                           alt={m.title}
                           className="object-cover h-full w-full group-hover:scale-105 transition-transform"
                         />
                       ) : (
-                        <div className="text-gray-500 uppercase tracking-wider font-semibold">
-                          {m.type}
-                        </div>
+                        <div className="text-gray-500 uppercase tracking-wider font-semibold">{m.type}</div>
                       )}
                     </div>
-                    <div className="absolute bottom-2 right-2 text-xs bg-black/40 text-white px-2 py-0.5 rounded">
-                      {m.type}
-                    </div>
+                    <div className="absolute bottom-2 right-2 text-xs bg-black/40 text-white px-2 py-0.5 rounded">{m.type}</div>
                   </div>
-
                   <div className="mt-3">
                     <h4 className="font-semibold text-[#8B5E3C]">{m.title}</h4>
-                    <p className="text-sm text-gray-600">
-                      {m.transcript ? "With transcript" : "No transcript"}
-                    </p>
+                    <p className="text-sm text-gray-600">{m.transcript ? "With transcript" : "No transcript"}</p>
                   </div>
                 </Link>
               ))}
             </div>
           ) : (
-            <p className="text-center text-gray-500 italic mt-8">
-              No media available for this community yet.
-            </p>
+            <p className="text-center text-gray-500 italic mt-8">No media available for this community yet.</p>
           )}
         </section>
       </Container>

@@ -5,6 +5,7 @@ import TopNav from "../components/TopNav";
 import Container from "../components/Container";
 import { DUMMY_COMMUNITIES, DUMMY_MEDIA } from "../data/dummyData";
 import { useNavigate } from "react-router-dom";
+import { apiGet } from "../utils/api";
 
 
 export default function AdminAddCommunity() {
